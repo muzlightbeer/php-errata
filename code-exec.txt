@@ -1,0 +1,2 @@
+mb_eregi_replace
+mb_ereg_replace

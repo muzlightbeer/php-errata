@@ -1,0 +1,6 @@
+sqlite_udf_encode_binary
+filter_list
+mt_srand
+filter_input
+sqlite_escape_string
+filter_var
