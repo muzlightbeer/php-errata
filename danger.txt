@@ -1,0 +1,9 @@
+parse_str
+yaml_parse_file
+yaml_parse
+eval
+pg_query
+yaml_parse_url
+clearstatcache
+curl_setopt
+urldecode

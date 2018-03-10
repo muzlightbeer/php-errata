@@ -9,6 +9,7 @@ deprecat_functions = []
 unsafe_functions = []
 warning_functions = []
 pop_the_champagne_functions = []
+danger_functions = []
 
 def create_lists():
     global security_functions
@@ -16,6 +17,7 @@ def create_lists():
     global unsafe_functions
     global warning_functions
     global pop_the_champagne_functions
+    global danger_functions
 
     fd = open("security.txt", "r")
     temp = fd.readlines()
@@ -40,7 +42,12 @@ def create_lists():
     fd = open("code-exec.txt", "r")
     temp = fd.readlines()
     pop_the_champagne_functions = [x.strip() for x in temp]
-    fd.close()  
+    fd.close()
+
+    fd = open("danger.txt", "r")
+    temp = fd.readlines()
+    danger_functions = [x.strip() for x in temp]
+    fd.close()
  
 def check_code():
     try:
@@ -52,6 +59,7 @@ def check_code():
     unsafe_found_fd = open("output/unsafe_found.txt", "a")
     warning_found_fd = open("output/warning_found.txt", "a")
     code_exec_found_fd = open("output/code_exec_found.txt", "a")
+    danger_found_fd = open("output/danger_found.txt", "a")
     for filename in glob.iglob("SOURCE/**/*.php*", recursive=True): 
         fd = open(filename, "r")
         current_file = fd.read()
@@ -80,6 +88,12 @@ def check_code():
             temp = re.search(item, current_file, re.IGNORECASE)
             if temp:
                 code_exec_found_fd.write("%s in %s\n" % (item, filename)) 
+
+        for item in danger_functions:
+            temp = re.search(item, current_file, re.IGNORECASE)
+            if temp:
+                danger_found_fd.write("%s in %s\n" % (item, filename))
+
         fd.close()
 
     security_found_fd.close()
@@ -87,11 +101,11 @@ def check_code():
     unsafe_found_fd.close()
     warning_found_fd.close()
     code_exec_found_fd.close()
+    danger_found_fd.close()
 
 def main():
     create_lists()   
     check_code()
-
 
 if __name__ == "__main__":
     main()
